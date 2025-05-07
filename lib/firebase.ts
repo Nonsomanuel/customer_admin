@@ -11,7 +11,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyDfkdtra2ORXuhQwyfoHHn5Dawkh9_jubs",
   authDomain: "business-admin-7cd9e.firebaseapp.com",
   projectId: "business-admin-7cd9e",
-  storageBucket: "business-admin-7cd9e.firebaseapp.com",
+  storageBucket: "business-admin-7cd9e.appspot.com",
   messagingSenderId: "194265744619",
   appId: "1:194265744619:web:468f7c03c7e068d3192aae",
   measurementId: "G-P3M1SBLXJ8",

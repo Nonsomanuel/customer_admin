@@ -74,6 +74,7 @@ export function BizForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log("🟢 Submitting:", values);
     const customer = {
       businessName: values.businessname ?? "",
       name: values.customername,
