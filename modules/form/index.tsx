@@ -24,6 +24,8 @@ import {
 } from "@/components/ui/popover";
 import { toast } from "sonner";
 import { X } from "lucide-react";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 
 const formSchema = z.object({
   businessname: z
@@ -71,31 +73,47 @@ export function BizForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const customer = {
+      businessName: values.businessname ?? "",
+      name: values.customername,
+      phone: values.phonenumber,
+      product: values.product,
+      amount: Number(values.amount),
+      dueDate: Timestamp.fromDate(new Date(values.duedate)),
+      createdAt: Timestamp.now(),
+    };
 
-    toast.custom(
-      (t) => (
-        <div className="relative flex items-center justify-between text-[15px] md:w-[414px] p-4 font-radio_canada text-[#228329] bg-white rounded-none shadow-lg">
-          <div className=""></div>
-          <span>
-            {"Reminder set! We'll message your customer before the due date"}
-          </span>
-          <button
-            onClick={() => toast.dismiss(t)}
-            className="text-[#228329] hover:text-[#1a6b24] focus:outline-none"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </div>
-      ),
-      {
-        position: "top-center",
-        duration: Infinity,
-      }
-    );
-    // Reset the form after submission
-    form.reset();
+    try {
+      await addDoc(collection(db, "customers"), customer);
+
+      toast.custom(
+        (t) => (
+          <div className="relative flex items-center justify-between text-[15px] md:w-[414px] p-4 font-radio_canada text-[#228329] bg-white rounded-none shadow-lg">
+            <span>
+              {
+                "✅ Reminder set! We'll message your customer before the due date."
+              }
+            </span>
+            <button
+              onClick={() => toast.dismiss(t)}
+              className="text-[#228329] hover:text-[#1a6b24] focus:outline-none"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        ),
+        {
+          position: "top-center",
+          duration: 6000,
+        }
+      );
+
+      form.reset(); // clears the form
+    } catch (error) {
+      console.error("❌ Firestore error:", error);
+      toast.error("Something went wrong. Please try again.");
+    }
   }
 
   return (
