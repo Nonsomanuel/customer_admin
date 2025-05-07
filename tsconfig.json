@@ -18,6 +18,8 @@
         "name": "next"
       }
     ],
+    "types": [],
+    "typeRoots": ["node_modules/@types"],
     "paths": {
       "@/*": ["./*"]
     }
