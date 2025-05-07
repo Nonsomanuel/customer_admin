@@ -79,7 +79,7 @@ export function BizForm() {
         <div className="relative flex items-center justify-between text-[15px] md:w-[414px] p-4 font-radio_canada text-[#228329] bg-white rounded-none shadow-lg">
           <div className=""></div>
           <span>
-            {"Thanks! We'll send your customer a WhatsApp reminder soon."}
+            {"Reminder set! We'll message your customer before the due date"}
           </span>
           <button
             onClick={() => toast.dismiss(t)}
