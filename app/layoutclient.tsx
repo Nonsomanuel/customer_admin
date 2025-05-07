@@ -23,7 +23,7 @@ export function LayoutClient({}: { children: React.ReactNode }) {
           </div>
         </div>
         {/* Right side */}
-        <div className="px-6 bg-neutral-100 flex flex-col justify-center h-full">
+        <div className="px-6 bg-neutral-100 flex flex-col justify-center h-full font-radio_canada">
           <BizForm />
         </div>
       </div>
