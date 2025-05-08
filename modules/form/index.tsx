@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -178,6 +179,9 @@ export function BizForm() {
                     required
                   />
                 </FormControl>
+                <FormDescription>
+                  {"Customer's WhatsApp Number for Reminder"}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
