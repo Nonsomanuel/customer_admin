@@ -29,12 +29,9 @@ import { db } from "@/lib/firebase";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 
 const formSchema = z.object({
-  businessname: z
-    .string()
-    .min(2, {
-      message: "Business name must be at least 2 characters.",
-    })
-    .optional(),
+  businessname: z.string().min(2, {
+    message: "Business name must be at least 2 characters.",
+  }),
   customername: z.string().min(2, {
     message: "Customer name must be at least 2 characters.",
   }),
@@ -133,7 +130,7 @@ export function BizForm() {
             name="businessname"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Business Name (Optional)</FormLabel>
+                <FormLabel>Business Name</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Ace Group of Companies"
@@ -201,6 +198,9 @@ export function BizForm() {
                     required
                   />
                 </FormControl>
+                <FormDescription>
+                  {"Products/Services purchased/ordered by customer"}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -220,6 +220,9 @@ export function BizForm() {
                     required
                   />
                 </FormControl>
+                <FormDescription>
+                  {"Amount to be paid by customer for products/services"}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
