@@ -37,11 +37,9 @@ const formSchema = z.object({
   }),
   phonenumber: z
     .string()
-    .min(10, {
-      message: "Phone number must be at least 10 digits.",
-    })
-    .regex(/^[+]?[0-9]+$/, {
-      message: "Phone number must contain only numbers and optional + prefix",
+    .min(10, { message: "Phone number must be at least 10 digits." })
+    .regex(/^(\+234|0)[0-9]{10}$/, {
+      message: "Must be Nigerian number (start with 0 or +234)",
     }),
   product: z.string().min(2, {
     message: "Product description required.",
@@ -76,11 +74,15 @@ export function BizForm() {
     const customer = {
       businessName: values.businessname ?? "",
       name: values.customername,
-      phone: values.phonenumber,
+      phone: values.phonenumber.startsWith("+234")
+        ? values.phonenumber
+        : `+234${values.phonenumber.replace(/^0/, "")}`,
       product: values.product,
       amount: Number(values.amount),
       dueDate: Timestamp.fromDate(new Date(values.duedate)),
       createdAt: Timestamp.now(),
+      status: "pending", // Add this
+      whatsappId: "", // Add this
     };
 
     try {
@@ -104,7 +106,7 @@ export function BizForm() {
         ),
         {
           position: "top-center",
-          duration: 6000,
+          duration: Infinity,
         }
       );
 
