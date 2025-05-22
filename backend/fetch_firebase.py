@@ -31,9 +31,10 @@ def send_due_reminders():
             # 🟢 New message format with business name as header
             msg = (
                 f"*{business}*\n\n"
-                f"Hi {name}, this is a reminder that you owe ₦{amount} for {product}.\n"
+                f"Hello {name}, \n"
+                f"this is  to remind you that your order/appointment for {product} is due tomorrow. \n" 
                 f"Due: {due_date.strftime('%b %d, %Y')}.\n"
-                f"Kindly make your payment. Thank you!"
+                f"Thank you!"
             )
 
             send_whatsapp(phone, msg)
