@@ -1,4 +1,3 @@
-# fetch_firebase.py
 from datetime import datetime
 import firebase_admin
 from firebase_admin import credentials, firestore
@@ -27,7 +26,15 @@ def send_due_reminders():
             name = data["name"]
             product = data["product"]
             amount = data["amount"]
-            msg = f"Hi {name}, reminder: you owe ₦{amount} for {product}. Due: {due_date}. Kindly pay."
+            business = data.get("businessName", "Your Business")
+
+            # 🟢 New message format with business name as header
+            msg = (
+                f"*{business}*\n\n"
+                f"Hi {name}, this is a reminder that you owe ₦{amount} for {product}.\n"
+                f"Due: {due_date.strftime('%b %d, %Y')}.\n"
+                f"Kindly make your payment. Thank you!"
+            )
 
             send_whatsapp(phone, msg)
 
